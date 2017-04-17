@@ -43,12 +43,6 @@ class Admin::JobsController < ApplicationController
     redirect_to admin_jobs_path, alert: "Job deleted"
   end
 
-  private
-
-  def job_params
-    params.require(:job).permit(:title, :description, :wage_lower_bound, :wage_upper_bound, :contact_email, :is_hidden)
-  end
-
   def publish
     @job = Job.find(params[:id])
     @job.publish!
@@ -59,6 +53,12 @@ class Admin::JobsController < ApplicationController
     @job = Job.find(params[:id])
     @job.hide!
     redirect_to :back
+  end
+
+  private
+
+  def job_params
+    params.require(:job).permit(:title, :description, :wage_lower_bound, :wage_upper_bound, :contact_email, :is_hidden)
   end
 
 end
